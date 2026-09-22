@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eletroeletrônica IFAL Arapiraca</title>
+<style>
+:root{
+  --preto: #141311;
+  --preto-2: #1c1a17;
+  --amarelo: #efb62a;
+  --amarelo-escuro: #6b4f0f;
+  --creme: #f7f1e3;
+  --texto: #23211d;
+  --texto-suave: #57534a;
+  --borda: #e7e0cc;
+  --fundo: #fbf8f0;
+}
+*{ box-sizing: border-box; margin: 0; padding: 0; }
+html{ scroll-behavior: smooth; }
+body{
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.6;
+}
+a{ color: inherit; text-decoration: none; }
+img, svg.ilustracao{ max-width: 100%; display: block; }
+.container{ max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+/* ---------- HEADER ---------- */
+header{
+  background: var(--preto);
+  color: var(--creme);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 2px solid var(--amarelo);
+}
+.nav-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  gap: 16px;
+}
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+.logo .raio{ color: var(--amarelo); font-size: 1.3rem; }
+nav ul{ display: flex; gap: 22px; list-style: none; }
+nav a{ font-size: 0.88rem; color: #d9cfae; transition: color 0.15s ease; }
+nav a:hover, nav a.ativo{ color: var(--amarelo); }
+
+.busca{
+  display: flex;
+  align-items: center;
+  background: #232019;
+  border: 1px solid #3a3529;
+  border-radius: 8px;
+  padding: 6px 10px;
+  gap: 6px;
+  flex: 0 0 180px;
+}
+.busca input{
+  background: none; border: none; outline: none;
+  color: var(--creme); font-size: 0.82rem; width: 100%;
+}
+.busca input::placeholder{ color: #8a8471; }
+.busca span{ color: var(--amarelo); font-size: 0.85rem; }
+
+.menu-btn{
+  display: none;
+  background: none;
+  border: 1px solid var(--amarelo);
+  color: var(--amarelo);
+  width: 36px; height: 36px;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ---------- HERO (home) ---------- */
+.hero{
+  position: relative;
+  background: var(--preto);
+  color: var(--creme);
+  overflow: hidden;
+  padding: 80px 24px 90px;
+  text-align: center;
+}
+.hero svg.circuito{ position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.4; pointer-events: none; }
+.hero-content{ position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+.eyebrow{ color: var(--amarelo); font-weight: 600; font-size: 0.82rem; margin-bottom: 12px; letter-spacing: 0.5px; }
+.hero h1{ font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; margin-bottom: 14px; line-height: 1.25; }
+.hero p{ color: #d9cfae; font-size: 1rem; margin-bottom: 24px; }
+.hero-cta{ display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn{
+  padding: 11px 22px; border-radius: 8px; font-size: 0.92rem; font-weight: 600;
+  cursor: pointer; border: 1px solid transparent; display: inline-block;
+  transition: transform 0.12s ease, opacity 0.15s ease;
+}
+.btn:hover{ opacity: 0.9; }
+.btn-primario{ background: var(--amarelo); color: var(--preto); }
+.btn-secundario{ background: transparent; color: var(--creme); border-color: #4a463c; }
+
+/* ---------- HERO menor (páginas internas) ---------- */
+.page-hero{
+  background: var(--preto);
+  color: var(--creme);
+  padding: 46px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero .eyebrow{ margin-bottom: 8px; }
+.page-hero h1{ font-size: 1.7rem; margin-bottom: 8px; }
+.page-hero p{ color: #d9cfae; font-size: 0.92rem; max-width: 520px; margin: 0 auto; }
+
+section{ padding: 60px 0; }
+.section-titulo{ display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 8px; }
+.section-titulo h2{ font-size: 1.4rem; font-weight: 700; }
+.section-titulo p{ color: var(--texto-suave); font-size: 0.9rem; }
+
+.grid-4{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.grid-3{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.grid-2{ display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
+
+.card{
+  background: #fff; border: 1px solid var(--borda); border-radius: 10px;
+  padding: 20px; transition: border-color 0.15s ease;
+}
+.card:hover{ border-color: var(--amarelo); }
+.card .icone{
+  width: 38px; height: 38px; border-radius: 8px; background: #fdf1cf;
+  color: var(--amarelo-escuro); display: flex; align-items: center; justify-content: center;
+  font-size: 1.05rem; margin-bottom: 12px;
+}
+.card h3{ font-size: 0.96rem; margin-bottom: 6px; }
+.card p{ font-size: 0.84rem; color: var(--texto-suave); }
+
+.bg-clara{ background: #fff; border-top: 1px solid var(--borda); border-bottom: 1px solid var(--borda); }
+
+.video-card{ border: 1px solid var(--borda); border-radius: 10px; overflow: hidden; background: var(--fundo); }
+.video-thumb{ height: 100px; background: #fdf1cf; display: flex; align-items: center; justify-content: center; color: var(--amarelo-escuro); font-size: 1.5rem; }
+.video-info{ padding: 14px 16px; }
+.video-info h4{ font-size: 0.92rem; margin-bottom: 4px; }
+.video-info span{ font-size: 0.76rem; color: var(--texto-suave); }
+
+.grid-tools{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.tool-card{ border: 1px solid var(--borda); background: #fff; border-radius: 10px; padding: 18px; display: flex; align-items: center; gap: 12px; }
+.tool-card .dot{ width: 8px; height: 8px; border-radius: 50%; background: var(--amarelo); flex-shrink: 0; }
+.tool-card h4{ font-size: 0.94rem; margin-bottom: 2px; }
+.tool-card span{ font-size: 0.76rem; color: var(--texto-suave); }
+
+/* Cards de simulador com imagem de fundo (placa de circuito) */
+.grid-tools-bg{ display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.tool-card-bg{
+  position: relative;
+  overflow: hidden;
+  background: var(--preto);
+  border-radius: 12px;
+  padding: 22px;
+  display: block;
+  text-decoration: none;
+  min-height: 128px;
+}
+.tool-card-bg svg.bg-circuito{ position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.35; }
+.tool-card-bg .conteudo{ position: relative; z-index: 1; }
+.tool-card-bg h4{ color: var(--creme); font-size: 1.05rem; margin-bottom: 6px; }
+.tool-card-bg p{ color: #d9cfae; font-size: 0.82rem; margin-bottom: 14px; max-width: 320px; }
+.tool-card-bg .link-txt{ display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; color: var(--amarelo); font-weight: 600; }
+.tool-card-bg:hover .link-txt{ text-decoration: underline; }
+
+.jogos-wrap{
+  background: var(--preto); color: var(--creme); border-radius: 14px; padding: 40px 30px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+}
+.jogos-texto h2{ color: var(--creme); margin-bottom: 8px; }
+.jogos-texto p{ color: #d9cfae; max-width: 420px; font-size: 0.9rem; }
+
+.creditos{
+  background: #fdf1cf; border: 1px solid var(--borda); border-radius: 12px; padding: 26px;
+  text-align: center; margin-top: 8px;
+}
+.creditos h3{ font-size: 1.1rem; margin-bottom: 10px; }
+.creditos p{ font-size: 0.9rem; color: var(--texto-suave); max-width: 560px; margin: 0 auto; }
+.creditos .nomes{ margin-top: 12px; font-weight: 600; color: var(--amarelo-escuro); font-size: 0.95rem; }
+
+/* ---------- Navegação secundária (rodapé de abas) ---------- */
+.subnav{
+  background: var(--fundo); border-top: 1px solid var(--borda); border-bottom: 1px solid var(--borda);
+  padding: 18px 0;
+}
+.subnav .container{ display: flex; gap: 10px; overflow-x: auto; }
+.subnav a{
+  flex: 0 0 auto; background: #fff; border: 1px solid var(--borda); border-radius: 999px;
+  padding: 8px 16px; font-size: 0.82rem; font-weight: 500; white-space: nowrap;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+.subnav a:hover, .subnav a.ativo{ border-color: var(--amarelo); color: var(--amarelo-escuro); }
+
+/* ---------- FOOTER ---------- */
+footer{ background: var(--preto-2); color: #b8b19b; padding: 44px 0 22px; }
+.footer-grid{ display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; margin-bottom: 28px; }
+.footer-grid h5{ color: var(--creme); font-size: 0.88rem; margin-bottom: 12px; }
+.footer-grid ul{ list-style: none; }
+.footer-grid li{ margin-bottom: 8px; font-size: 0.83rem; }
+.footer-grid li a:hover{ color: var(--amarelo); }
+.footer-base{ border-top: 1px solid #322f28; padding-top: 16px; font-size: 0.76rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+
+/* ---------- RESPONSIVO ---------- */
+@media (max-width: 900px){
+  .grid-4{ grid-template-columns: repeat(2, 1fr); }
+  .grid-3{ grid-template-columns: 1fr; }
+  .grid-2{ grid-template-columns: 1fr; }
+  .grid-tools{ grid-template-columns: 1fr; }
+  .footer-grid{ grid-template-columns: 1fr; }
+  .busca{ display: none; }
+}
+@media (max-width: 720px){
+  nav ul{
+    position: absolute; top: 100%; left: 0; right: 0; background: var(--preto);
+    flex-direction: column; padding: 16px 24px; gap: 16px; display: none;
+    border-bottom: 2px solid var(--amarelo);
+  }
+  nav ul.aberto{ display: flex; }
+  .menu-btn{ display: block; }
+}
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo"><span class="raio">⚡</span> Eletroeletrônica IFAL</div>
+    <nav>
+      <ul id="menu">
+        <li><a href="inicio.html">Início</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="videoaulas.html">Videoaulas</a></li>
+        <li><a href="exercicios.html">Exercícios</a></li>
+        <li><a href="simuladores.html">Simuladores</a></li>
+        <li><a href="projetos.html">Projetos</a></li>
+        <li><a href="jogos.html">Jogos</a></li>
+        <li><a href="fontes.html">Fontes</a></li>
+      </ul>
+    </nav>
+    <form class="busca" id="buscaForm">
+      <span>🔍</span>
+      <input type="text" id="buscaInput" placeholder="Buscar no site...">
+    </form>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="circuito" viewBox="0 0 1100 420" preserveAspectRatio="none">
+    <g stroke="#6b4f0f" stroke-width="1.2" fill="none">
+      <path d="M0 60 H180 V150 H360 V60 H600"/>
+      <path d="M1100 90 H900 V220 H780 V340 H980"/>
+      <path d="M0 320 H140 V400 H260"/>
+      <path d="M700 360 H860 V300 H1000"/>
+    </g>
+    <g fill="#efb62a">
+      <circle cx="180" cy="60" r="4"/><circle cx="360" cy="150" r="4"/><circle cx="900" cy="90" r="4"/>
+      <circle cx="780" cy="220" r="4"/><circle cx="140" cy="320" r="4"/><circle cx="860" cy="300" r="4"/>
+    </g>
+  </svg>
+  <div class="hero-content">
+    <p class="eyebrow">CURSO TÉCNICO · IFAL CAMPUS ARAPIRACA</p>
+    <h1>Descubra o mundo da eletroeletrônica</h1>
+    <p>Um site feito por alunos do curso técnico de eletroeletrônica, com videoaulas, exercícios, simulações e projetos reais. Navegue pelas abas acima ou pelos atalhos aqui embaixo.</p>
+    <div class="hero-cta">
+      <a href="videoaulas.html" class="btn btn-primario">Assistir videoaulas</a>
+      <a href="sobre.html" class="btn btn-secundario">Conhecer o curso</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-titulo">
+      <h2>O que você encontra aqui</h2>
+      <p>Clique em qualquer card pra ir direto pra aba</p>
+    </div>
+    <div class="grid-4">
+      <a href="inicio.html" class="card">
+        <div class="icone">🚀</div>
+        <h3>Início</h3>
+        <p>Por que o curso existe, o perfil do egresso e a divisão por ano.</p>
+      </a>
+      <a href="sobre.html" class="card">
+        <div class="icone">📘</div>
+        <h3>Sobre o curso</h3>
+        <p>Como funciona a eletroeletrônica no IFAL Arapiraca.</p>
+      </a>
+      <a href="videoaulas.html" class="card">
+        <div class="icone">▶</div>
+        <h3>Videoaulas</h3>
+        <p>Conteúdo do 1º ao 3º ano, organizado por tema.</p>
+      </a>
+      <a href="exercicios.html" class="card">
+        <div class="icone">Σ</div>
+        <h3>Exercícios</h3>
+        <p>Resolução passo a passo, em vídeo e em texto.</p>
+      </a>
+      <a href="simuladores.html" class="card">
+        <div class="icone">≋</div>
+        <h3>Simuladores</h3>
+        <p>Tinkercad, EasyEDA, KiCad e AutoCAD na prática.</p>
+      </a>
+      <a href="projetos.html" class="card">
+        <div class="icone">▭</div>
+        <h3>Projetos</h3>
+        <p>Placas e circuitos feitos pelos próprios alunos.</p>
+      </a>
+      <a href="jogos.html" class="card">
+        <div class="icone">◆</div>
+        <h3>Jogos</h3>
+        <p>Quiz e desafios pra testar o que você aprendeu.</p>
+      </a>
+      <a href="fontes.html" class="card">
+        <div class="icone">📚</div>
+        <h3>Fontes</h3>
+        <p>De onde vem o material usado no site.</p>
+      </a>
+      <a href="sobre.html" class="card">
+        <div class="icone">⚡</div>
+        <h3>Por que eletroeletrônica</h3>
+        <p>Entenda por que essa área é tão bonita e tão útil.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="bg-clara">
+  <div class="container">
+    <div class="creditos">
+      <h3>De onde veio essa ideia</h3>
+      <p>Esse site nasceu de uma conversa entre colegas de turma que queriam juntar, num lugar só, tudo que a gente vai aprendendo no curso técnico de eletroeletrônica — das aulas do dia a dia até os projetos que a gente monta nos simuladores. A ideia começou entre a gente e foi crescendo até virar esse site.</p>
+      <p class="nomes">Idealizado por Miguel, Samuel e o criador do site</p>
+    </div>
+  </div>
+</section>
+
+<nav class="subnav">
+  <div class="container">
+    <a href="inicio.html">Início</a>
+    <a href="sobre.html">Sobre</a>
+    <a href="videoaulas.html">Videoaulas</a>
+    <a href="exercicios.html">Exercícios</a>
+    <a href="simuladores.html">Simuladores</a>
+    <a href="projetos.html">Projetos</a>
+    <a href="jogos.html">Jogos</a>
+    <a href="fontes.html">Fontes</a>
+  </div>
+</nav>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h5>Eletroeletrônica IFAL Arapiraca</h5>
+        <p style="font-size:0.85rem; max-width:320px;">Um site feito por alunos do curso técnico de eletroeletrônica para compartilhar conteúdo e mostrar como a área é linda.</p>
+      </div>
+      <div>
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="inicio.html">Início</a></li>
+          <li><a href="sobre.html">Sobre</a></li>
+          <li><a href="videoaulas.html">Videoaulas</a></li>
+          <li><a href="simuladores.html">Simuladores</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Mais</h5>
+        <ul>
+          <li><a href="jogos.html">Jogos</a></li>
+          <li><a href="exercicios.html">Exercícios</a></li>
+          <li><a href="fontes.html">Fontes e referências</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>IFAL Campus Arapiraca</span>
+      <span>Curso técnico de Eletroeletrônica</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// menu mobile
+const menuBtn = document.getElementById('menuBtn');
+const menu = document.getElementById('menu');
+if (menuBtn && menu) {
+  menuBtn.addEventListener('click', () => menu.classList.toggle('aberto'));
+  menu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => menu.classList.remove('aberto'));
+  });
+}
+
+// busca simples: leva para a página cujo nome bate com o termo digitado
+const paginas = {
+  'sobre': 'sobre.html',
+  'curso': 'sobre.html',
+  'videoaula': 'videoaulas.html',
+  'video': 'videoaulas.html',
+  'aula': 'videoaulas.html',
+  'exercicio': 'exercicios.html',
+  'exercício': 'exercicios.html',
+  'simulador': 'simuladores.html',
+  'tinkercad': 'simuladores.html',
+  'kicad': 'simuladores.html',
+  'falstad': 'simuladores.html',
+  'proteus': 'simuladores.html',
+  'easyeda': 'simuladores.html',
+  'autocad': 'simuladores.html',
+  'projeto': 'projetos.html',
+  'jogo': 'jogos.html',
+  'quiz': 'jogos.html',
+  'fonte': 'fontes.html',
+  'referencia': 'fontes.html',
+  'referência': 'fontes.html'
+};
+
+const buscaForm = document.getElementById('buscaForm');
+if (buscaForm) {
+  buscaForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const termo = document.getElementById('buscaInput').value.trim().toLowerCase();
+    const chaveEncontrada = Object.keys(paginas).find(chave => termo.includes(chave));
+    if (chaveEncontrada) {
+      window.location.href = paginas[chaveEncontrada];
+    } else {
+      alert('Não encontrei nada com esse termo. Tente: sobre, videoaula, exercício, simulador, projeto, jogo ou fonte.');
+    }
+  });
+}
+
+</script>
+</body>
+</html>
